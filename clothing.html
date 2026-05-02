@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roupas | Coutinho Multimarcas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="img/logo.png" alt="Coutinho | Multimarcas & Pods">
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="index.html" id="link-home">Home</a></li>
+            <li><a href="clothing.html" id="link-clothing" class="active">Roupas</a></li>
+            <li><a href="vape.html" id="link-vape">Pods</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div id="cart-modal">
+        <div class="cart-header">
+            <h2>Seu Carrinho</h2>
+            <i class="fas fa-times" style="cursor:pointer" onclick="toggleCart()"></i>
+        </div>
+        <div class="cart-items" id="cart-items-list"></div>
+        <div class="cart-footer">
+            <div style="display:flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span>Total:</span>
+                <span id="cart-total">R$ 0,00</span>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="simulatedCheckout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout (Formulário de Entrega) -->
+    <div id="checkout-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="cart-header">
+                <h2>Finalizar Pedido</h2>
+                <i class="fas fa-times" style="cursor:pointer" onclick="closeCheckout()"></i>
+            </div>
+            <form id="delivery-form" onsubmit="sendWhatsAppOrder(event)">
+                <div class="form-group">
+                    <label>Como deseja receber?</label>
+                    <select id="delivery-type" onchange="toggleDeliveryFields()" required>
+                        <option value="delivery">Entrega em Domicílio</option>
+                        <option value="pickup">Retirada no Local</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="client-name" placeholder="Ex: João Silva" required>
+                </div>
+
+                <div id="address-fields">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+                        <div class="form-group">
+                            <label>Rua</label>
+                            <input type="text" id="address-street" placeholder="Nome da rua">
+                        </div>
+                        <div class="form-group">
+                            <label>Número</label>
+                            <input type="text" id="address-number" placeholder="Nº">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Bairro</label>
+                        <input type="text" id="address-neighborhood" placeholder="Seu bairro">
+                    </div>
+                    <div class="form-group">
+                        <label>Complemento (Opcional)</label>
+                        <input type="text" id="address-complement" placeholder="Apt, bloco, referência...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Forma de Pagamento</label>
+                    <select id="payment-method" onchange="toggleChangeField()" required>
+                        <option value="pix">Pix</option>
+                        <option value="cartao">Cartão (Débito/Crédito)</option>
+                        <option value="dinheiro">Dinheiro</option>
+                    </select>
+                </div>
+
+                <div id="change-field" class="form-group" style="display: none;">
+                    <label>Troco para quanto?</label>
+                    <input type="number" id="cash-change" placeholder="Ex: 100">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">
+                    Enviar Pedido via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <section id="clothing">
+        <h2 class="section-title">Roupas</h2>
+        <div class="product-grid" id="clothing-grid"></div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Coutinho | Multimarcas & Pods</h4>
+                <p style="color: var(--text-dim);">A melhor loja de Roupas & Pods de Lago da Pedra. Qualidade garantida.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Siga-nos</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/coutinhomultimarca____/"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="legal-notice">
+            <p style="margin-top: 10px;">&copy; 2026 Coutinho | Multimarcas & Pods. Todos os direitos reservados.</p>
+            <p style="margin-top: 5px; font-size: 0.75rem; color: var(--text-dim);">Site desenvolvido por <a href="https://www.instagram.com/limazx.s/" target="_blank" style="font-weight: 600; color: var(--text-main); text-decoration: none;">Limazx</a> e <a href="https://www.instagram.com/wallyslv_/" target="_blank" style="font-weight: 600; color: var(--text-main); text-decoration: none;">Wallyh2k</a></p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK (Versão Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyA7-ZnC-Gxon1iuPBzS2h_qbkZkfYhPwmg",
+        authDomain: "coutinho-multimarcas.firebaseapp.com",
+        projectId: "coutinho-multimarcas",
+        storageBucket: "coutinho-multimarcas.firebasestorage.app",
+        messagingSenderId: "73471244969",
+        appId: "1:73471244969:web:8e961d9799a5aefdc7c7b8",
+        measurementId: "G-RDFS7E0R1V"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Monitorando a coleção "products" em tempo real
+      onSnapshot(collection(db, "products"), (snapshot) => {
+        const listaProdutos = [];
+        snapshot.forEach((doc) => {
+          listaProdutos.push({ id: doc.id, ...doc.data() });
+        });
+        
+        // Envia os dados para a função que desenha o site
+        if (window.renderizarProdutosNoSite) {
+          window.renderizarProdutosNoSite(listaProdutos);
+        }
+      });
+    </script>
+</body>
+</html>
