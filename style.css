@@ -532,6 +532,31 @@ section {
     border-top: 1px solid #e5e5e5;
 }
 
+/* --- Image Modal (Lightbox) --- */
+#image-modal {
+    background: rgba(0, 0, 0, 0.9);
+    cursor: zoom-out;
+}
+
+.modal-content-image {
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    cursor: default;
+}
+
+.close-image-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 2100;
+}
+
 /* --- Footer --- */
 footer {
     background: #ffffff;
