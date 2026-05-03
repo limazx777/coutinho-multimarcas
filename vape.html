@@ -118,6 +118,12 @@
         </div>
     </div>
 
+    <!-- Modal de Visualização de Imagem -->
+    <div id="image-modal" class="modal-overlay" onclick="closeImageModal()">
+        <span class="close-image-modal">&times;</span>
+        <img class="modal-content-image" id="full-image" onclick="event.stopPropagation()">
+    </div>
+
     <section id="vape">
         <h2 class="section-title">Pods</h2>
         <div class="product-grid" id="vape-grid"></div>
