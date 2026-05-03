@@ -106,6 +106,12 @@
         </div>
     </div>
 
+    <!-- Modal de Visualização de Imagem -->
+    <div id="image-modal" class="modal-overlay" onclick="closeImageModal()">
+        <span class="close-image-modal">&times;</span>
+        <img class="modal-content-image" id="full-image" onclick="event.stopPropagation()">
+    </div>
+
     <section id="clothing">
         <h2 class="section-title">Roupas</h2>
         <div class="product-grid" id="clothing-grid"></div>
