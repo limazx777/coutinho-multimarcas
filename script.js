@@ -193,7 +193,7 @@ function createProductCard(product) {
 
     // Suporte para Imagem ou Ícone
     const displayImg = product.image 
-        ? `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover;">`
+        ? `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover; cursor: pointer;" onclick="openImageModal('${product.image}')">`
         : product.icon;
 
     // Garante que o preço seja um número para não quebrar o toFixed
@@ -442,6 +442,21 @@ function simulatedCheckout() {
 
 function closeCheckout() {
     document.getElementById('checkout-modal').style.display = 'none';
+}
+
+function openImageModal(src) {
+    const modal = document.getElementById('image-modal');
+    const fullImg = document.getElementById('full-image');
+    if (modal && fullImg) {
+        fullImg.src = src;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Bloqueia scroll
+    }
+}
+
+function closeImageModal() {
+    document.getElementById('image-modal').style.display = 'none';
+    document.body.style.overflow = ''; // Libera scroll
 }
 
 function toggleDeliveryFields() {
